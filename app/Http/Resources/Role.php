@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\Resource;
 
-class RoleCollection extends ResourceCollection
+class Role extends Resource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
@@ -15,11 +15,16 @@ class RoleCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            // 'id' => $this->id,
-            // 'name' => $this->name,
+            'id' => $this->id,
+            'name' => $this->name,
             // 'alias' => $this->alias,
+        ];
+    }
+
+    public function with($request)
+    {
+        return [
             'success' => true,
-            'data' => $this->collection,
         ];
     }
 }

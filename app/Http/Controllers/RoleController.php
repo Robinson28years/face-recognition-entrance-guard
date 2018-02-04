@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use Illuminate\Http\Request;
+use App\Http\Resources\Role as RoleResource;
 
 class RoleController extends Controller
 {
@@ -44,9 +45,9 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(Role $id)
     {
-        //
+        return new RoleResource($id);
     }
 
     /**
