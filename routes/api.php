@@ -22,10 +22,8 @@ use App\Http\Resources\Role as RoleResource;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::get('/roles',function(){
-    // return new RoleResource(Role::find(1));
-    return new RoleCollection(Role::all());
-    // return new RoleCollection(Role::where('id',1)->get());
-    // return RoleResource::collection(Role::all());
-});
+// Route::resource('/roles','RoleController');
+Route::get('/roles','RoleController@all');
+Route::post('/roles','RoleController@store');
 Route::get('/roles/{id}','RoleController@show');
+Route::put('roles/{id}','RoleController@update');

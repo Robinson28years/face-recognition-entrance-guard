@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Resources\Role as RoleResource;
+use App\Http\Resources\RoleCollection;
 
 class RoleController extends Controller
 {
@@ -28,19 +29,34 @@ class RoleController extends Controller
         //
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * 列出所有角色
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+        return new RoleCollection(Role::all());
+    }
+
+    /**
+     * 新建一个角色
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        //
+        $role = Role::create($request->all());
+        // dd($role->id);
+        return new RoleResource($role);
+
     }
 
     /**
-     * Display the specified resource.
+     * 获取某个角色的信息
      *
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
@@ -50,16 +66,6 @@ class RoleController extends Controller
         return new RoleResource($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Role $role)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -68,9 +74,10 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, Role $id)
     {
-        //
+        $role = $id->update($request->all());
+        return new RoleResource($role);
     }
 
     /**
