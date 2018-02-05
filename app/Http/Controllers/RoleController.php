@@ -9,33 +9,13 @@ use App\Http\Resources\RoleCollection;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
 
     /**
      * 列出所有角色
      *
      * @return \Illuminate\Http\Response
      */
-    public function all()
+    public function index()
     {
         return new RoleCollection(Role::all());
     }
@@ -61,33 +41,36 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $id)
+    public function show(Role $role)
     {
-        return new RoleResource($id);
+        return new RoleResource($role);
     }
 
 
     /**
-     * Update the specified resource in storage.
+     * 更新某个资源
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $id)
+    public function update(Request $request, Role $role)
     {
-        $role = $id->update($request->all());
+        $role->update($request->all());
         return new RoleResource($role);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 删除某个角色
      *
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
     public function destroy(Role $role)
     {
-        //
+        $r = $role->delete();
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }
