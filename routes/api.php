@@ -23,8 +23,17 @@ use App\Http\Resources\Role as RoleResource;
 //     return $request->user();
 // });
 // Route::resource('/roles','RoleController');
+
+//角色
 Route::get('/roles','RoleController@index');
-Route::post('/roles','RoleController@store');
 Route::get('/roles/{role}','RoleController@show');
+Route::post('/roles','RoleController@store');
 Route::patch('/roles/{role}','RoleController@update');
 Route::delete('/roles/{role}','RoleController@destroy');
+
+//用户
+Route::get('/users','UserController@index');
+Route::get('/users/{user}','UserController@show');
+Route::post('/users','UserController@store');
+Route::patch('/users/{user}','UserController@update');
+Route::delete('/users/{user}','UserController@destroy');

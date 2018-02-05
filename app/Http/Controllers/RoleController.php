@@ -46,7 +46,6 @@ class RoleController extends Controller
         return new RoleResource($role);
     }
 
-
     /**
      * 更新某个资源
      *
