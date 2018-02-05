@@ -22,7 +22,6 @@ use App\Http\Resources\Role as RoleResource;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-// Route::resource('/roles','RoleController');
 
 //角色
 Route::get('/roles','RoleController@index');
