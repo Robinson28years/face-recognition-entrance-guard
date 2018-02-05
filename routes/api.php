@@ -31,6 +31,13 @@ Route::post('/roles','RoleController@store');
 Route::patch('/roles/{role}','RoleController@update');
 Route::delete('/roles/{role}','RoleController@destroy');
 
+//权限
+Route::get('/permissions','PermissionController@index');
+Route::get('/permissions/{permission}','PermissionController@show');
+Route::post('/permissions','PermissionController@store');
+Route::patch('/permissions/{permission}','PermissionController@update');
+Route::delete('/permissions/{permission}','PermissionController@destroy');
+
 //用户
 Route::get('/users','UserController@index');
 Route::get('/users/{user}','UserController@show');
