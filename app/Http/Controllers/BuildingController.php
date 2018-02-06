@@ -4,64 +4,50 @@ namespace App\Http\Controllers;
 
 use App\Building;
 use Illuminate\Http\Request;
+use App\Http\Resources\Building as BuildingResource;
+use App\Http\Resources\BuildingCollection;
 
 class BuildingController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * 列出所有楼幢
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return new BuildingCollection(Building::all());
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * 新建一个楼幢
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        //
+        $building = Building::create($request->all());
+        // dd($building->id);
+        return new BuildingResource($building);
+
     }
 
     /**
-     * Display the specified resource.
+     * 获取某个楼幢的信息
      *
      * @param  \App\Building  $building
      * @return \Illuminate\Http\Response
      */
     public function show(Building $building)
     {
-        //
+        return new BuildingResource($building);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Building  $building
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Building $building)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * 更新某个资源
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Building  $building
@@ -69,17 +55,21 @@ class BuildingController extends Controller
      */
     public function update(Request $request, Building $building)
     {
-        //
+        $building->update($request->all());
+        return new BuildingResource($building);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 删除某个楼幢
      *
      * @param  \App\Building  $building
      * @return \Illuminate\Http\Response
      */
     public function destroy(Building $building)
     {
-        //
+        $r = $building->delete();
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }

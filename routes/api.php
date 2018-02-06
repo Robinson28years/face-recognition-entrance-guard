@@ -43,3 +43,10 @@ Route::get('/users/{user}','UserController@show');
 Route::post('/users','UserController@store');
 Route::patch('/users/{user}','UserController@update');
 Route::delete('/users/{user}','UserController@destroy');
+
+//楼幢
+Route::get('/buildings','BuildingController@index');
+Route::get('/buildings/{building}','BuildingController@show');
+Route::post('/buildings','BuildingController@store');
+Route::patch('/buildings/{building}','BuildingController@update');
+Route::delete('/buildings/{building}','BuildingController@destroy');
