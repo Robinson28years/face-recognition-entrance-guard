@@ -12,4 +12,12 @@ class Building extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * 获得此楼幢的所有地址。
+     */
+    public function addresses()
+    {
+        return $this->hasMany('App\Address');
+    }
 }

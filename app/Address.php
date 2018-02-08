@@ -12,4 +12,12 @@ class Address extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * 获得此地址位于的楼幢。
+     */
+    public function building()
+    {
+        return $this->belongsTo('App\Building');
+    }
 }
