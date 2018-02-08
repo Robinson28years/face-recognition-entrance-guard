@@ -24,8 +24,8 @@ class Role extends Model
     /**
      * 获得此角色的权限。
      */
-    // public function permissions()
-    // {
-    //     return $this->hasMany('App\Permission');
-    // }
+    public function permissions()
+    {
+        return $this->belongsToMany('App\Permission','role_permissions');
+    }
 }
