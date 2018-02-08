@@ -24,4 +24,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    /**
+     * 获得此用户的角色。
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role','user_roles');
+    }
 }

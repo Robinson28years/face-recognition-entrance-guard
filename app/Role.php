@@ -12,4 +12,20 @@ class Role extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * 获得此角色的用户。
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\User','user_roles');
+    }
+
+    /**
+     * 获得此角色的权限。
+     */
+    // public function permissions()
+    // {
+    //     return $this->hasMany('App\Permission');
+    // }
 }
