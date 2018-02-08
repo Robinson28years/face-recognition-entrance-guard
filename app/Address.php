@@ -20,4 +20,12 @@ class Address extends Model
     {
         return $this->belongsTo('App\Building');
     }
+
+    /**
+     * 获得此地址绑定的用户。
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\User','user_addresses');
+    }
 }

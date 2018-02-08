@@ -32,4 +32,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Role','user_roles');
     }
+
+    /**
+     * 获得此用户的绑定的地址。
+     */
+    public function addresses()
+    {
+        return $this->belongsToMany('App\Address','user_addresses');
+    }
 }
