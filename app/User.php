@@ -44,4 +44,12 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\UserCode');
     }
+
+    /**
+     * 获得此用户的访问记录。
+     */
+    public function visits()
+    {
+        return $this->hasMany('App\Visit');
+    }
 }
