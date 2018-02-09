@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTimeToUserAddressTable extends Migration
+class AddVisitableTypeToVisitTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddTimeToUserAddressTable extends Migration
      */
     public function up()
     {
-        Schema::table('user_addresses', function (Blueprint $table) {
-            $table->string('time')->after('role_id');
+        Schema::table('visits', function (Blueprint $table) {
+            $table->string('visitable_type')->after('guard');
         });
     }
 
@@ -25,7 +25,7 @@ class AddTimeToUserAddressTable extends Migration
      */
     public function down()
     {
-        Schema::table('user_addresses', function (Blueprint $table) {
+        Schema::table('visits', function (Blueprint $table) {
             //
         });
     }
