@@ -11,15 +11,11 @@ class User extends Authenticatable
 
     /**
      * 不可被批量赋值的属性。
-     *
-     * @var array
      */
     protected $guarded = [];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * 返回数据的时候隐藏值
      */
     protected $hidden = [
         'password', 'remember_token',
