@@ -40,4 +40,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Address','user_addresses');
     }
+
+    /**
+     * 获得此用户的识别码。
+     */
+    public function code()
+    {
+        return $this->hasOne('App\UserCode');
+    }
 }
