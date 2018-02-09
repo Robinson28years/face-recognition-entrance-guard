@@ -20,4 +20,12 @@ class Building extends Model
     {
         return $this->hasMany('App\Address');
     }
+
+    /**
+     * 获得此楼幢的所有访问记录。
+     */
+    public function visits()
+    {
+        return $this->morphMany('App\Visit', 'visitable');
+    }
 }

@@ -28,4 +28,12 @@ class Address extends Model
     {
         return $this->belongsToMany('App\User','user_addresses');
     }
+
+    /**
+     * 获得此地址的所有访问记录。
+     */
+    public function visits()
+    {
+        return $this->morphMany('App\Visit', 'visitable');
+    }
 }

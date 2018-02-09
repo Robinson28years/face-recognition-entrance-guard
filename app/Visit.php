@@ -28,4 +28,12 @@ class Visit extends Model
     {
         return $this->belongsTo('App\User','authorized_officer');
     }
+
+    /**
+     * 获得拥有此访问记录的模型。
+     */
+    public function visitable()
+    {
+        return $this->morphTo();
+    }
 }
