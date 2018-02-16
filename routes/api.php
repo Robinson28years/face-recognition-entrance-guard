@@ -50,3 +50,7 @@ Route::get('/buildings/{building}','BuildingController@show');
 Route::post('/buildings','BuildingController@store');
 Route::patch('/buildings/{building}','BuildingController@update');
 Route::delete('/buildings/{building}','BuildingController@destroy');
+
+//用户与角色
+Route::get('/users/{user}/roles','UserRoleController@roleIndex');
+Route::get('/roles/{role}/users','UserRoleController@userIndex');

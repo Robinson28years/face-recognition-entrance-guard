@@ -2,22 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\UserUserRole;
+use App\UserRole;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserRole as UserRoleResource;
 use App\Http\Resources\UserRoleCollection;
+use App\User;
+use App\Role;
+use App\Http\Resources\UserCollection;
 
 class UserRoleController extends Controller
 {
 
     /**
-     * 列出所有角色
+     * 列出某用户所有角色
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function roleIndex(User $user)
     {
-        return new UserRoleCollection(UserRole::all());
+        return $user->roles;
+    }
+
+    /**
+     * 列出某角色所有用户
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function userIndex(Role $role)
+    {
+        return new UserCollection($role->users);
     }
 
     /**
