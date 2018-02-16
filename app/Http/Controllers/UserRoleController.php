@@ -9,6 +9,7 @@ use App\Http\Resources\UserRoleCollection;
 use App\User;
 use App\Role;
 use App\Http\Resources\UserCollection;
+use App\Http\Resources\RoleCollection;
 
 class UserRoleController extends Controller
 {
@@ -20,7 +21,7 @@ class UserRoleController extends Controller
      */
     public function roleIndex(User $user)
     {
-        return $user->roles;
+        return new RoleCollection($user->roles);
     }
 
     /**
@@ -34,53 +35,32 @@ class UserRoleController extends Controller
     }
 
     /**
-     * 新建一个角色
+     * 赋予某用户某角色
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request)
+    public function store(Request $request,User $user)
     {
-        $role = UserRole::create($request->all());
+        // dd($request->role_id);
+        $user->roles()->attach($request->role_id);
+        // $role = UserRole::create($request->all());
         // dd($role->id);
-        return new UserRoleResource($role);
+        return new RoleCollection($user->roles);
 
     }
 
+
     /**
-     * 获取某个角色的信息
+     * 删除某用户的某个角色
      *
      * @param  \App\UserRole  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(UserRole $role)
+    public function destroy(User $user,Role $role)
     {
-        return new UserRoleResource($role);
-    }
-
-    /**
-     * 更新某个资源
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\UserRole  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, UserRole $role)
-    {
-        $role->update($request->all());
-        return new UserRoleResource($role);
-    }
-
-    /**
-     * 删除某个角色
-     *
-     * @param  \App\UserRole  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(UserRole $role)
-    {
-        $r = $role->delete();
+        $user->roles()->detach($role->id);
         return response()->json([
             'success' => true,
         ]);
