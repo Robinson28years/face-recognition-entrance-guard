@@ -4,82 +4,49 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use Illuminate\Http\Request;
+use App\Building;
+use App\Http\Resources\BuildingCollection;
+use App\Http\Resources\AddressCollection;
+use App\Http\Resources\Address as AddressResource;
 
 class AddressController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * 列出某楼幢所有住户地址
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function addressIndex(Building $building)
     {
-        //
+        return new AddressCollection($building->addresses);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * 将某地址绑定到楼幢上
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        //
+        $address = Address::create($request->all());
+        return new AddressResource($address);
+
     }
 
     /**
-     * Display the specified resource.
+     * 删除某用户的某个角色
      *
-     * @param  \App\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Address $address)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Address $address)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Address $address)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Address  $address
      * @return \Illuminate\Http\Response
      */
     public function destroy(Address $address)
     {
-        //
+        $address->delete();
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }
+

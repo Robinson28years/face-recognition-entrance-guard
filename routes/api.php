@@ -61,3 +61,8 @@ Route::delete('/users/{user}/roles/{role}','UserRoleController@destroy');
 Route::get('/roles/{role}/permissions','RolePermissionController@permissionIndex');
 Route::post('/roles/{role}/permissions','RolePermissionController@store');
 Route::delete('/roles/{role}/permissions/{permission}','RolePermissionController@destroy');
+
+//楼幢与住户地址
+Route::get('/buildings/{building}/addresses','AddressController@addressIndex');
+Route::post('/addresses','AddressController@store');
+Route::delete('/addresses/{address}','AddressController@destroy');
