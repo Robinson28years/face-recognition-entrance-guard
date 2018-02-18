@@ -56,3 +56,8 @@ Route::get('/users/{user}/roles','UserRoleController@roleIndex');
 Route::get('/roles/{role}/users','UserRoleController@userIndex');
 Route::post('/users/{user}/roles','UserRoleController@store');
 Route::delete('/users/{user}/roles/{role}','UserRoleController@destroy');
+
+//角色与权限
+Route::get('/roles/{role}/permissions','RolePermissionController@permissionIndex');
+Route::post('/roles/{role}/permissions','RolePermissionController@store');
+Route::delete('/roles/{role}/permissions/{permission}','RolePermissionController@destroy');
