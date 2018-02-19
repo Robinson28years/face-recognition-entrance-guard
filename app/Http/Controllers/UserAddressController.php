@@ -7,6 +7,8 @@ use App\Http\Resources\UserAddressCollection;
 use App\Http\Resources\UserAddress as UserAddressResource;
 use App\User;
 use App\Address;
+use App\Http\Resources\AddressUser as AddressUserResource;
+use App\Http\Resources\AddressUserCollection;
 
 class UserAddressController extends Controller
 {
@@ -41,8 +43,9 @@ class UserAddressController extends Controller
      */
     public function userIndex(Address $address)
     {
-        // dd($user->addresses);
-        return new UserAddressCollection($address->users);
+        // dd($address->users);
+        return new AddressUserCollection($address->users);
+        // return new UserAddressCollection($address->users);
     }
 
     /**
