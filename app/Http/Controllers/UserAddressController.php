@@ -61,11 +61,25 @@ class UserAddressController extends Controller
             'role_id' => $request->role_id,
             'time' => $request->time,
         ]);
-        
+
         $user = User::find($request->user_id);
         $address2 = $user->addresses()->find($address->id);
         return new UserAddressResource($address2);
     }
+
+     /**
+     * 更新绑定权限和时间
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function update(Request $request,User $user,Address $address)
+    {
+        $user->addresses()->updateExistingPivot($address->id,$request->all());
+        $address2 = $user->addresses()->find($address->id);
+        return new UserAddressResource($address2);
+    }   
 
     /**
      * 删除某用户的某个角色
