@@ -82,13 +82,13 @@ class UserAddressController extends Controller
     }   
 
     /**
-     * 删除某用户的某个角色
+     * 删除某用户与地址的绑定
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role,Permission $permission)
+    public function destroy(User $user,Address $address)
     {
-        $role->permissions()->detach($permission->id);
+        $user->addresses()->detach($address->id);
         return response()->json([
             'success' => true,
         ]);
