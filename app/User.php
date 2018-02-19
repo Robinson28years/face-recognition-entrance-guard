@@ -34,7 +34,7 @@ class User extends Authenticatable
      */
     public function addresses()
     {
-        return $this->belongsToMany('App\Address','user_addresses')->withPivot('created_at', 'role_id', 'time');;
+        return $this->belongsToMany('App\Address','user_addresses')->withPivot('created_at', 'role_id', 'time');
     }
 
     /**

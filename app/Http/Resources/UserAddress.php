@@ -16,9 +16,17 @@ class UserAddress extends Resource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'address_id' => $this->address_id,
-            'role_id' => $this->role_id,
+            'address' => [
+                'building_id' => $this->building_id,
+                'unit_id' => $this->unit_id,
+                'room_id' => $this->room_id,
+            ],
+            'role_id' => $this->whenPivotLoaded('user_addresses',function () {
+                return $this->pivot->role_id;
+            }),
+            'time' => $this->whenPivotLoaded('user_addresses',function () {
+                return $this->pivot->time;
+            }),
         ];
     }
 
