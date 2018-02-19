@@ -49,17 +49,22 @@ class UserAddressController extends Controller
     }
 
     /**
-     * 某地址所有的用户及角色和时间段
+     * 为地址注册用户并绑定权限和时间
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request,Role $role)
+    public function store(Request $request,Address $address)
     {
-        $role->permissions()->attach($request->permission_id);
-        return new PermissionCollection($role->permissions);
-
+        $address->users()->attach($request->user_id,[
+            'role_id' => $request->role_id,
+            'time' => $request->time,
+        ]);
+        
+        $user = User::find($request->user_id);
+        $address2 = $user->addresses()->find($address->id);
+        return new UserAddressResource($address2);
     }
 
     /**

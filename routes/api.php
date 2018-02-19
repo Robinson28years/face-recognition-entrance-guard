@@ -71,3 +71,5 @@ Route::delete('/addresses/{address}','AddressController@destroy');
 Route::get('/users/{user}/addresses','UserAddressController@addressIndex');
 Route::get('/users/{user}/addresses/{address}','UserAddressController@userAddress');
 Route::get('/addresses/{address}/users','UserAddressController@userIndex');
+Route::post('/addresses/{address}/users','UserAddressController@store');
+Route::patch('/users/{user}/addresses/{address}','UserAddressController@update');

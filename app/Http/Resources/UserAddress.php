@@ -15,8 +15,8 @@ class UserAddress extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
             'address' => [
+                'address_id' => $this->id,
                 'building_id' => $this->building_id,
                 'unit_id' => $this->unit_id,
                 'room_id' => $this->room_id,
