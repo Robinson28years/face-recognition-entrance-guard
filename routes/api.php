@@ -74,3 +74,6 @@ Route::get('/addresses/{address}/users','UserAddressController@userIndex');
 Route::post('/addresses/{address}/users','UserAddressController@store');
 Route::patch('/users/{user}/addresses/{address}','UserAddressController@update');
 Route::delete('/users/{user}/addresses/{address}','UserAddressController@destroy');
+
+//访问记录
+Route::get('/visits','VisitController@index');

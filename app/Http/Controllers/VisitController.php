@@ -4,19 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Visit;
 use Illuminate\Http\Request;
+use App\Http\Resources\VisitCollection;
 
 class VisitController extends Controller
 {
 
     /**
-     * 列出某用户所有的地址以及角色和时间段
+     * 列出所有访问记录
      *
      * @return \Illuminate\Http\Response
      */
-    public function addressIndex(User $user)
+    public function index()
     {
         // dd($user->addresses);
-        return new UserAddressCollection($user->addresses);
+        return new VisitCollection(Visit::all());
     }
 
     /**
