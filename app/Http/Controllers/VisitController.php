@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Visit;
 use Illuminate\Http\Request;
 use App\Http\Resources\VisitCollection;
+use App\User;
 
 class VisitController extends Controller
 {
@@ -21,15 +22,14 @@ class VisitController extends Controller
     }
 
     /**
-     * 列出某用户在某地址拥有的角色和时间段
+     * 获取某个用户的所有访问记录
      *
      * @return \Illuminate\Http\Response
      */
-    public function userAddress(User $user,Address $address)
+    public function userIndex(User $user)
     {
-        $address2 = $user->addresses()->find($address->id);
         // dd($address2);
-        return new UserAddressResource($address2);
+        return new VisitCollection($user->visits);
     }
 
     /**
@@ -37,12 +37,12 @@ class VisitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function userIndex(Address $address)
-    {
-        // dd($address->users);
-        return new AddressUserCollection($address->users);
-        // return new UserAddressCollection($address->users);
-    }
+    // public function userIndex(Address $address)
+    // {
+    //     // dd($address->users);
+    //     return new AddressUserCollection($address->users);
+    //     // return new UserAddressCollection($address->users);
+    // }
 
     /**
      * 为地址注册用户并绑定权限和时间
