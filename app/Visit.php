@@ -21,19 +21,19 @@ class Visit extends Model
         return $this->belongsTo('App\User');
     }
 
-    /**
-     * 获取拜访者的授权人。
-     */
-    public function grantor()
-    {
-        return $this->belongsTo('App\User','authorized_officer');
-    }
+    // /**
+    //  * 获取拜访者的授权人。
+    //  */
+    // public function grantor()
+    // {
+    //     return $this->belongsTo('App\User','grantor');
+    // }
 
     /**
      * 获得拥有此访问记录的模型。
      */
-    public function visitable()
+    public function address()
     {
-        return $this->morphTo();
+        return $this->belongsTo('App\Address');
     }
 }

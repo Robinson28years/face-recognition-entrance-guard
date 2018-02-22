@@ -34,6 +34,6 @@ class Address extends Model
      */
     public function visits()
     {
-        return $this->morphMany('App\Visit', 'visitable');
+        return $this->hasMany('App\Visit');
     }
 }
