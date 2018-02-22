@@ -13,11 +13,11 @@ class CreateCodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('codes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('num');
-            $table->timestamps();
-        });
+        // Schema::create('codes', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('num');
+        //     $table->timestamps();
+        // });
     }
 
     /**

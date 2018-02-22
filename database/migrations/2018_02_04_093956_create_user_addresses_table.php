@@ -20,9 +20,9 @@ class CreateUserAddressesTable extends Migration
             $table->integer('role_id')->unsigned();
             $table->integer('grantor')->unsigned();
             $table->foreign('grantor')
-            ->references('id')
-            ->on('users')
-            ->onDelete('cascade');
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -13,21 +13,21 @@ class CreateTimesTable extends Migration
      */
     public function up()
     {
-        Schema::create('times', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('address_id')->unsigned();
-            $table->string('time');
-            $table->foreign('address_id')
-                  ->references('id')
-                  ->on('addresses')
-                  ->onDelete('cascade');
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
-            $table->timestamps();
-        });
+        // Schema::create('times', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('user_id')->unsigned();
+        //     $table->integer('address_id')->unsigned();
+        //     $table->string('time');
+        //     $table->foreign('address_id')
+        //           ->references('id')
+        //           ->on('addresses')
+        //           ->onDelete('cascade');
+        //     $table->foreign('user_id')
+        //           ->references('id')
+        //           ->on('users')
+        //           ->onDelete('cascade');
+        //     $table->timestamps();
+        // });
     }
 
     /**

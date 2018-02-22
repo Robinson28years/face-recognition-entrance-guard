@@ -13,9 +13,9 @@ class AddVisitableTypeToVisitTable extends Migration
      */
     public function up()
     {
-        Schema::table('visits', function (Blueprint $table) {
-            $table->string('visitable_type')->after('guard');
-        });
+        // Schema::table('visits', function (Blueprint $table) {
+        //     $table->string('visitable_type')->after('guard');
+        // });
     }
 
     /**
