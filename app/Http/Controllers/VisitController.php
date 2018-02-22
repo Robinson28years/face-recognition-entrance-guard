@@ -90,12 +90,12 @@ class VisitController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request,User $user,Address $address)
-    {
-        $user->addresses()->updateExistingPivot($address->id,$request->all());
-        $address2 = $user->addresses()->find($address->id);
-        return new UserAddressResource($address2);
-    }   
+    // public function update(Request $request,User $user,Address $address)
+    // {
+    //     $user->addresses()->updateExistingPivot($address->id,$request->all());
+    //     $address2 = $user->addresses()->find($address->id);
+    //     return new UserAddressResource($address2);
+    // }   
 
     // /**
     //  * 删除某用户与地址的绑定
