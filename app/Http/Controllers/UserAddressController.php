@@ -58,6 +58,7 @@ class UserAddressController extends Controller
     public function store(Request $request,Address $address)
     {
         $address->users()->attach($request->user_id,[
+            // 'address_id' => $request->address_id,
             'role_id' => $request->role_id,
             'time' => $request->time,
             'grantor' => $request->grantor,
