@@ -27,6 +27,9 @@ class UserAddress extends Resource
             'time' => $this->whenPivotLoaded('user_addresses',function () {
                 return $this->pivot->time;
             }),
+            'grantor' => $this->whenPivotLoaded('user_addresses',function () {
+                return $this->pivot->grantor;
+            }),
         ];
     }
 
