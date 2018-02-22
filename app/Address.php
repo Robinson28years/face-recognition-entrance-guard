@@ -26,7 +26,7 @@ class Address extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User','user_addresses')->withPivot('created_at', 'role_id', 'time');;
+        return $this->belongsToMany('App\User','user_addresses')->withPivot('created_at', 'role_id', 'time')->withTimestamps();
     }
 
     /**
