@@ -60,6 +60,7 @@ class UserAddressController extends Controller
         $address->users()->attach($request->user_id,[
             'role_id' => $request->role_id,
             'time' => $request->time,
+            'grantor' => $request->grantor,
         ]);
 
         $user = User::find($request->user_id);

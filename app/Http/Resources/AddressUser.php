@@ -15,7 +15,7 @@ class AddressUser extends Resource
     public function toArray($request)
     {
         return [
-            // 'id' => $this->id,
+            'user_id' => $this->id,
             'role_id' => $this->whenPivotLoaded('user_addresses',function () {
                 return $this->pivot->role_id;
             }),
