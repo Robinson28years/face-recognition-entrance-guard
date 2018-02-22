@@ -16,14 +16,9 @@ class CreateVisitsTable extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('grantor')->unsigned();
             $table->integer('visitable_id')->unsigned();
             $table->string('result');
             $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
-            $table->foreign('grantor')
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade');

@@ -18,6 +18,11 @@ class CreateUserAddressesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('address_id')->unsigned();
             $table->integer('role_id')->unsigned();
+            $table->integer('grantor')->unsigned();
+            $table->foreign('grantor')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }
