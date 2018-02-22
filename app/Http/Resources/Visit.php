@@ -16,7 +16,7 @@ class Visit extends Resource
     {
         return [
             'id' => $this->id,
-            'time' => $this->created_at,
+            'time' => $this->created_at->format('Y-m-d H:i:s'),
             'user_id' => $this->user_id,
             'address_id' => $this->address_id,
             'result' => $this->result,

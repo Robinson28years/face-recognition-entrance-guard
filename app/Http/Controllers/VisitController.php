@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Visit;
 use Illuminate\Http\Request;
 use App\Http\Resources\VisitCollection;
+use App\Http\Resources\Visit as VisitResource;
 use App\User;
 use App\Building;
 use App\Address;
@@ -77,14 +78,9 @@ class VisitController extends Controller
 
     public function store(Request $request,Address $address)
     {
-        $address->users()->attach($request->user_id,[
-            'role_id' => $request->role_id,
-            'time' => $request->time,
-        ]);
-
-        $user = User::find($request->user_id);
-        $address2 = $user->addresses()->find($address->id);
-        return new UserAddressResource($address2);
+        $visit = $address->visits()->create($request->all());
+        // dd($visit);
+        return new VisitResource($visit);
     }
 
      /**
@@ -101,16 +97,16 @@ class VisitController extends Controller
         return new UserAddressResource($address2);
     }   
 
-    /**
-     * 删除某用户与地址的绑定
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user,Address $address)
-    {
-        $user->addresses()->detach($address->id);
-        return response()->json([
-            'success' => true,
-        ]);
-    }
+    // /**
+    //  * 删除某用户与地址的绑定
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function destroy(User $user,Address $address)
+    // {
+    //     $user->addresses()->detach($address->id);
+    //     return response()->json([
+    //         'success' => true,
+    //     ]);
+    // }
 }
