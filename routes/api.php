@@ -78,3 +78,5 @@ Route::delete('/users/{user}/addresses/{address}','UserAddressController@destroy
 //访问记录
 Route::get('/visits','VisitController@index');
 Route::get('/users/{user}/visits','VisitController@userIndex');
+Route::get('/buildings/{building}/visits','VisitController@buildingIndex');
+Route::get('/addresses/{address}/visits','VisitController@addressIndex');

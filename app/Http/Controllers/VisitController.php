@@ -6,6 +6,8 @@ use App\Visit;
 use Illuminate\Http\Request;
 use App\Http\Resources\VisitCollection;
 use App\User;
+use App\Building;
+use App\Address;
 
 class VisitController extends Controller
 {
@@ -30,6 +32,28 @@ class VisitController extends Controller
     {
         // dd($address2);
         return new VisitCollection($user->visits);
+    }
+
+    /**
+     * 获取某个楼幢的所有访问记录
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function buildingIndex(Building $building)
+    {
+        // dd($address2);
+        return new VisitCollection($building->visits);
+    }
+
+    /**
+     * 获取某个住户地址的所有访问记录
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addressIndex(Address $address)
+    {
+        // dd($address2);
+        return new VisitCollection($address->visits);
     }
 
     /**

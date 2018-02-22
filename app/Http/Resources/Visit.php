@@ -18,8 +18,9 @@ class Visit extends Resource
             'id' => $this->id,
             'time' => $this->time,
             'user_id' => $this->user_id,
-            'authorized_officer' => $this->authorized_officer,
-            'guard' => $this->guard,
+            'grantor' => $this->grantor,
+            'guard_id' => $this->visitable_id,
+            'guard_type' => $this->visitable_type,
             'result' => $this->result,
         ];
     }
