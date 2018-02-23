@@ -15,8 +15,8 @@ class Code extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'num' => $this->num,
+            'user_id' => $this->id,
+            'code' => $this->code,
         ];
     }
 
