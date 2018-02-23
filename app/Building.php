@@ -26,6 +26,6 @@ class Building extends Model
      */
     public function visits()
     {
-        // return $this->morphMany('App\Visit', 'visitable');
+        return $this->hasManyThrough('App\Visit', 'App\Address');
     }
 }
