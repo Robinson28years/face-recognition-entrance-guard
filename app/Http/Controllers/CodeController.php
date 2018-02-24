@@ -36,7 +36,6 @@ class CodeController extends Controller
     /**
      * 为一个用户绑定识别码
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
 
