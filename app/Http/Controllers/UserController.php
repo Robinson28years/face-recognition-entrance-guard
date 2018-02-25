@@ -71,4 +71,14 @@ class UserController extends Controller
             'success' => true,
         ]);
     }
+
+    /**
+     * 列出所有用户
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function profile()
+    {
+        return "hello world";
+    }
 }

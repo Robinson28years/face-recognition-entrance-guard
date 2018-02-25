@@ -23,6 +23,16 @@ use App\Http\Resources\Role as RoleResource;
 //     return $request->user();
 // });
 
+Route::prefix('auth')->group(function($router) {
+    $router->post('login', 'AuthController@login');
+    $router->post('logout', 'AuthController@logout');
+
+});
+
+Route::middleware('refresh.token')->group(function($router) {
+    $router->get('profile','UserController@profile');
+});
+
 //角色
 Route::get('/roles','RoleController@index');
 Route::get('/roles/{role}','RoleController@show');
