@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -79,6 +80,7 @@ class UserController extends Controller
      */
     public function profile()
     {
-        return "hello world";
+        $user = Auth::user();
+        return $user->name;
     }
 }
