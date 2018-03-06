@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'local2' => [
+            'driver' => 'local',
+            'root' => '/home/robinson/Pictures/face_test',
+//            'url' => env('APP_URL').'/home/robinson/Pictures/face_test',
+//            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

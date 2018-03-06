@@ -122,4 +122,6 @@ Route::middleware('refresh.token')->group(function($router) {
 
 Route::post('auth/visit/{building}','VisitController@auth');
 
+Route::post('auth/{building}','FaceController@auth');
+
 });
