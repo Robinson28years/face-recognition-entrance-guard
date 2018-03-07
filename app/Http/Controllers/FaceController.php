@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Building;
 use Illuminate\Support\Facades\Redis;
 use Webpatser\Uuid\Uuid;
+use App\User;
 
 class FaceController extends Controller
 {
@@ -47,7 +48,8 @@ class FaceController extends Controller
 
         $faceInfo = json_decode($result->getBody()->getContents(), true);
         $person = count($faceInfo);
-        $flag = false;
+        $flag = -1;
+        $flag2 = -1;
         for ($i=0; $i < $person; $i++) {
             $uuid = Uuid::generate();
             Redis::set($uuid,base64_decode($faceInfo[$i]));
@@ -69,10 +71,24 @@ class FaceController extends Controller
             // return $q;
             // dd()
             if($compare['similarity']>=0.75){
+                $flag=0;
                 Redis::del($uuid);
+                // var_dump($uuid);
+                $user = User::where('face_id',$compare['face_id'])->first();
+                //如果是最后一个人，flag又是false，加到访问表
+                //如果flag是true加到随行表
+                // dd($user->addresses);
+                foreach ($user->addresses as $address) {
+                    var_dump($address->building->id);
+                    if($address->building->id == $building->id) {
+                        $flag = 1;
+                        $flag2 = 1;
+                    }
+                }
                 //@Todo 判断此用户的权限
-                $flag = true;
             }else{
+                User::create(['face_id',$user_id]);
+                //加到随行表
                 //@Tode 将此用户存储
             }
         }
