@@ -57,7 +57,7 @@ return [
 
         'local2' => [
             'driver' => 'local',
-            'root' => '/home/robinson/Pictures/face_test',
+            'root' => env('PIC_PATH'),
 //            'url' => env('APP_URL').'/home/robinson/Pictures/face_test',
 //            'visibility' => 'public',
         ],

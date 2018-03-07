@@ -37,7 +37,7 @@ class FaceController extends Controller
     {
         $path = $request->file('file')->store('test2','local2');
 
-        $real_path = '/home/robinson/Pictures/face_test/'.$path;
+        $real_path = env('PIC_PATH').'/'.$path;
 
         $client = new \GuzzleHttp\Client();
         $result = $client->request('POST', 'http://127.0.0.1:5000/feature', [
