@@ -101,7 +101,8 @@ class UserAddressController extends Controller
      */
     public function test(Request $request)
     {
-        dd($request);
-        return null;
+        // dd($request);
+        var_dump($request->all());
+        return "ok";
     }
 }
