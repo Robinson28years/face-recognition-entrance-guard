@@ -102,7 +102,9 @@ class UserAddressController extends Controller
     public function test(Request $request)
     {
         // dd($request);
-        var_dump($request->all());
+        $date_serialize = serialize($request->all());            // 序列化成字符串
+        // $date_json = json_encode($date);               // JSON编码数组成字符串
+        var_dump($date_serialize);
         return "ok";
     }
 }

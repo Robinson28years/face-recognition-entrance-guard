@@ -95,14 +95,14 @@ Route::get('/buildings/{building}/addresses','AddressController@addressIndex');
 });
 
 //用户与地址
-Route::middleware('refresh.token')->group(function($router) {
+// Route::middleware('refresh.token')->group(function($router) {
     Route::get('/users/{user}/addresses','UserAddressController@addressIndex');
     Route::get('/users/{user}/addresses/{address}','UserAddressController@userAddress');
     Route::get('/addresses/{address}/users','UserAddressController@userIndex');
     Route::post('/addresses/{address}/users','UserAddressController@store');
     Route::patch('/users/{user}/addresses/{address}','UserAddressController@update');
     Route::delete('/users/{user}/addresses/{address}','UserAddressController@destroy');
-});
+// });
 
 //访问记录
 Route::middleware('refresh.token')->group(function($router) {
