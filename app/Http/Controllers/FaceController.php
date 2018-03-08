@@ -75,8 +75,7 @@ class FaceController extends Controller
                 Redis::del($uuid);
                 // var_dump($uuid);
                 $user = User::where('face_id',$compare['face_id'])->first();
-                //如果是最后一个人，flag又是false，加到访问表
-                //如果flag是true加到随行表
+                
                 // dd($user->addresses);
                 foreach ($user->addresses as $address) {
                     var_dump($address->building->id);
@@ -85,6 +84,8 @@ class FaceController extends Controller
                         // $flag2 = 1;
                     }
                 }
+            //如果是最后一个人，flag又是false，加到访问表
+                //如果flag是true加到随行表
             }else{
                 // factory(User::class)->create(['role_id' => 2]);
                 User::create(['face_id'=>$user_id]);

@@ -95,4 +95,13 @@ class UserAddressController extends Controller
             'success' => true,
         ]);
     }
+
+    /**
+     * 测试时间接收
+     */
+    public function test(Request $request)
+    {
+        dd($request);
+        return null;
+    }
 }
