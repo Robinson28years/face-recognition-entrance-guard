@@ -60,7 +60,7 @@ class UserAddressController extends Controller
         $address->users()->attach($request->user_id,[
             // 'address_id' => $request->address_id,
             'role_id' => $request->role_id,
-            'time' => $request->time,
+            'time' => serialize($request->time),
             'grantor' => $request->grantor,
         ]);
 
@@ -78,7 +78,13 @@ class UserAddressController extends Controller
 
     public function update(Request $request,User $user,Address $address)
     {
-        $user->addresses()->updateExistingPivot($address->id,$request->all());
+        // return "0";
+        // return $request->time;
+        // var_dump($request->date);
+        // $staff=array("name"=>"洪七","number"=>"101","sex"=>"男","job"=>"总经理");
+                // dd($staff);
+        // $user->addresses()->updateExistingPivot($address->id,$request->all());
+        $user->addresses()->updateExistingPivot($address->id,['time'=>serialize($request->time)]);
         $address2 = $user->addresses()->find($address->id);
         return new UserAddressResource($address2);
     }   

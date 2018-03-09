@@ -7,6 +7,7 @@ use App\Building;
 use Illuminate\Support\Facades\Redis;
 use Webpatser\Uuid\Uuid;
 use App\User;
+use Carbon\Carbon;
 
 class FaceController extends Controller
 {
@@ -78,9 +79,19 @@ class FaceController extends Controller
                 
                 // dd($user->addresses);
                 foreach ($user->addresses as $address) {
-                    var_dump($address->building->id);
+                    // var_dump($address->building->id);
                     if($address->building->id == $building->id) {
                         $flag = true;
+                        $time = unserialize($address->pivot->time);
+                        $week = Carbon::now()->dayOfWeek;
+                        // dd(Carbon::now()->dayOfWeek);
+                        if($time['date'][0]<=Carbon::now() && $time['date'][1]>=Carbon::now() && in_array($week,$time['week'])){
+                            return "ok";
+                        }else{
+                            return "no";
+                        }
+                        // return Carbon::now()>$time['date'][0];
+                        dd($address->pivot->time);
                         // $flag2 = 1;
                     }
                 }
