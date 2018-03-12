@@ -81,17 +81,17 @@ class FaceController extends Controller
                 foreach ($user->addresses as $address) {
                     // var_dump($address->building->id);
                     if($address->building->id == $building->id) {
-                        $flag = true;
+                        
                         $time = unserialize($address->pivot->time);
                         $week = Carbon::now()->dayOfWeek;
                         // dd(Carbon::now()->dayOfWeek);
                         if($time['date'][0]<=Carbon::now() && $time['date'][1]>=Carbon::now() && in_array($week,$time['week'])){
-                            return "ok";
+                            $flag = true;
                         }else{
-                            return "no";
+                            // return "no";
                         }
                         // return Carbon::now()>$time['date'][0];
-                        dd($address->pivot->time);
+                        // dd($address->pivot->time);
                         // $flag2 = 1;
                     }
                 }
