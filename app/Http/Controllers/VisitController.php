@@ -83,30 +83,19 @@ class VisitController extends Controller
         return new VisitResource($visit);
     }
 
-     /**
-     * 更新绑定权限和时间
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-    // public function update(Request $request,User $user,Address $address)
-    // {
-    //     $user->addresses()->updateExistingPivot($address->id,$request->all());
-    //     $address2 = $user->addresses()->find($address->id);
-    //     return new UserAddressResource($address2);
-    // }   
-
-    // /**
-    //  * 删除某用户与地址的绑定
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy(User $user,Address $address)
-    // {
-    //     $user->addresses()->detach($address->id);
-    //     return response()->json([
-    //         'success' => true,
-    //     ]);
-    // }
+    public function sendMsg()
+    {
+        $client = new \swoole_client(SWOOLE_SOCK_TCP);
+        $client->connect('127.0.0.1', 9998) || exit("connect failed. Error: {$client->errCode}\n");
+        
+        // 向服务端发送数据
+        for ($i = 0; $i < 1; $i++) {
+            $client->send(json_encode([
+                'type'  =>  'scan',
+                'fd'    =>  1,
+                'nickname'  => '23423'
+            ]));
+        }
+        $client->close(); 
+    }
 }

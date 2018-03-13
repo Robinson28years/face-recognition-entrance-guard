@@ -125,5 +125,6 @@ Route::post('auth/visit/{building}','VisitController@auth');
 Route::post('auth/{building}','FaceController@auth');
 
 Route::post('visits/test','UserAddressController@test');
+Route::get('visits/send','VisitController@sendMsg');
 
 });
