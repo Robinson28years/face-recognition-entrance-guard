@@ -93,7 +93,6 @@ class VisitController extends Controller
             $client->send(json_encode([
                 'type'  =>  'scan',
                 'fd'    =>  1,
-                'nickname'  => '23423'
             ]));
         }
         $client->close(); 
