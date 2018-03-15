@@ -15,7 +15,7 @@ class FaceController extends Controller
 {
     public function pic_by_path($path)
     {   
-        $path = 'test2/Zq4dZ2K6dYMTUHlEbxBZgraxZV0uz2k5eJd8W029.jpeg';
+        // $path = 'test2/Zq4dZ2K6dYMTUHlEbxBZgraxZV0uz2k5eJd8W029.jpeg';
         return (Storage::disk('local2')->get($path));
     }
     public function request_by_curl($url, $data) {
@@ -43,7 +43,7 @@ class FaceController extends Controller
      */
     public function auth(Building $building, Request $request)
     {
-        $path = $request->file('file')->store('test2','local2');
+        $path = $request->file('file')->store('','local2');
 
         $real_path = env('PIC_PATH').'/'.$path;
 
@@ -58,7 +58,7 @@ class FaceController extends Controller
         $user_id_final_2=null;
         $user_id_final_3=null;
         $address_id_final=null;
-        $pic_path=$real_path;
+        $pic_path=$path;
 
         $faceInfo = json_decode($result->getBody()->getContents(), true);
         $person = count($faceInfo);
