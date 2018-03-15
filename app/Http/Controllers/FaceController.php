@@ -9,9 +9,15 @@ use Webpatser\Uuid\Uuid;
 use App\User;
 use Carbon\Carbon;
 use App\Visit;
+use Illuminate\Support\Facades\Storage;
 
 class FaceController extends Controller
 {
+    public function pic_by_path($path)
+    {   
+        $path = 'test2/Zq4dZ2K6dYMTUHlEbxBZgraxZV0uz2k5eJd8W029.jpeg';
+        return (Storage::disk('local2')->get($path));
+    }
     public function request_by_curl($url, $data) {
         $postdata = http_build_query(
             $data
