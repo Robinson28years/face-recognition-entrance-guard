@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redis;
 use Webpatser\Uuid\Uuid;
 use App\User;
 use Carbon\Carbon;
+use App\Visit;
 
 class FaceController extends Controller
 {
@@ -47,6 +48,12 @@ class FaceController extends Controller
             ]
         ]);
 
+        $user_id_final=null;
+        $user_id_final_2=null;
+        $user_id_final_3=null;
+        $address_id_final=null;
+        $pic_path=$real_path;
+
         $faceInfo = json_decode($result->getBody()->getContents(), true);
         $person = count($faceInfo);
         $flag = false;
@@ -76,16 +83,17 @@ class FaceController extends Controller
                 Redis::del($uuid);
                 // var_dump($uuid);
                 $user = User::where('face_id',$compare['face_id'])->first();
-                
+                $user_id_final_3 = $user->id;
                 // dd($user->addresses);
                 foreach ($user->addresses as $address) {
                     // var_dump($address->building->id);
                     if($address->building->id == $building->id) {
-                        
+                        $address_id_final = $address->id;
                         $time = unserialize($address->pivot->time);
                         $week = Carbon::now()->dayOfWeek;
                         // dd(Carbon::now()->dayOfWeek);
                         if($time['date'][0]<=Carbon::now() && $time['date'][1]>=Carbon::now() && in_array($week,$time['week'])){
+                            $user_id_final_2 = $user->id;
                             $flag = true;
                         }else{
                             // return "no";
@@ -100,13 +108,35 @@ class FaceController extends Controller
                 //如果flag是true加到随行表
             }else{
                 // factory(User::class)->create(['role_id' => 2]);
-                User::create(['face_id'=>$user_id]);
+                $user =  User::create(['face_id'=>$user_id]);
+                $user_id_final_3 = $user->id;
                 //加到随行表
             }
         }
+        if($user_id_final_2!=null){
+            $user_id_final = $user_id_final_2;
+        }else{
+            $user_id_final = $user_id_final_3;
+        }
+
         if($flag) {
+            Visit::create([
+                'user_id'=>$user_id_final,
+                'address_id'=>$address_id_final,
+                'pic_path'=>$pic_path,
+                'result'=>"通过"
+            ]);
             return response()->json(['state'=>1,'open'=> true]);
         }elseif($person>0) {
+            if($address_id_final!=null){
+                $address_id_final = $building->addresses()->where('unit_id',0)->first()->id;
+            }
+            Visit::create([
+                'user_id'=>$user_id_final,
+                'address_id'=>$address_id_final,
+                'pic_path'=>$pic_path,
+                'result'=>"未通过"
+            ]);
             return response()->json(['state'=>1,'open'=> false]);
         }else{
             return response()->json(['state'=>2]);
