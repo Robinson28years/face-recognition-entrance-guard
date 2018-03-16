@@ -167,6 +167,7 @@ class FaceController extends Controller
 
         $faceInfo = json_decode($result->getBody()->getContents(), true);
         $person = count($faceInfo);
+        $flag = false;
         for ($i=0; $i < $person; $i++) {
             $uuid = Uuid::generate();
             Redis::set($uuid,base64_decode($faceInfo[$i]));
@@ -185,12 +186,17 @@ class FaceController extends Controller
                 Redis::del($uuid);
                 $user = User::where('face_id',$compare['face_id'])->first();
                 // dd($user);
-                $auth = Auth::login($user);
+                $token = Auth::login($user);
+                $flag = true;
                 // dd($auth);
-                return $this->auth->refresh();
+                // return $this->auth->refresh();
+                return response(['success'=>true,'token' => 'Bearer ' . $token], 200);
             }else{
 
             }
+        }
+        if(!$flag){
+            return response(['success'=>false,'error' => '人脸识别失败'], 200);
         }
     }
 }
