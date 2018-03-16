@@ -10,6 +10,7 @@ use App\User;
 use Carbon\Carbon;
 use App\Visit;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class FaceController extends Controller
 {
@@ -149,5 +150,47 @@ class FaceController extends Controller
         }
 
 
+    }
+
+    public function face_auth(Request $request)
+    {
+        $path = $request->file('file')->store('auth','local2');
+
+        $real_path = env('PIC_PATH').'/'.$path;
+
+        $client = new \GuzzleHttp\Client();
+        $result = $client->request('POST', 'http://127.0.0.1:5000/feature', [
+            'form_params' => [
+                'filePath' => $real_path
+            ]
+        ]);
+
+        $faceInfo = json_decode($result->getBody()->getContents(), true);
+        $person = count($faceInfo);
+        for ($i=0; $i < $person; $i++) {
+            $uuid = Uuid::generate();
+            Redis::set($uuid,base64_decode($faceInfo[$i]));
+            $user_id = $uuid->string;
+            $client2 = new \GuzzleHttp\Client();
+            // dd($uuid->string);
+            $result2 = $client2->request('POST', 'http://127.0.0.1:5000/compare', [
+                'form_params' => [
+                    "user_id" => $user_id,
+                ]
+            ]);
+    
+            $compare = json_decode($result2->getBody()->getContents(), true);
+            if($compare['similarity']>=0.75){
+
+                Redis::del($uuid);
+                $user = User::where('face_id',$compare['face_id'])->first();
+                // dd($user);
+                $auth = Auth::login($user);
+                // dd($auth);
+                return $this->auth->refresh();
+            }else{
+
+            }
+        }
     }
 }

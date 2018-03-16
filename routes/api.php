@@ -129,4 +129,6 @@ Route::get('visits/send','VisitController@sendMsg');
 
 Route::get('pic/{path}','FaceController@pic_by_path');
 
+Route::post('face/auth','FaceController@face_auth');
+
 });
