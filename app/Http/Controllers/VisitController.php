@@ -83,18 +83,19 @@ class VisitController extends Controller
         return new VisitResource($visit);
     }
 
-    public function sendMsg()
+    public function sendMsg(Request $request)
     {
+        // dd($request->fd);
         $client = new \swoole_client(SWOOLE_SOCK_TCP);
         $client->connect('127.0.0.1', 9998) || exit("connect failed. Error: {$client->errCode}\n");
         
         // 向服务端发送数据
-        for ($i = 0; $i < 1; $i++) {
+        // for ($i = 0; $i < 1; $i++) {
             $client->send(json_encode([
                 'type'  =>  'scan',
-                'fd'    =>  1,
+                'fd'    =>  $request->fd,
             ]));
-        }
+        // }
         $client->close(); 
     }
 }

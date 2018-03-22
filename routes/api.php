@@ -122,10 +122,11 @@ Route::middleware('refresh.token')->group(function($router) {
 
 Route::post('auth/visit/{building}','VisitController@auth');
 
+Route::post('auth/qrcode','VisitController@sendMsg');
+
 Route::post('auth/{building}','FaceController@auth');
 
 Route::post('visits/test','UserAddressController@test');
-Route::get('visits/send','VisitController@sendMsg');
 
 Route::get('pic/{path}','FaceController@pic_by_path');
 
