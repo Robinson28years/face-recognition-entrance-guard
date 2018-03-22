@@ -19,6 +19,7 @@ class Visit extends Resource
             // 'time' => $this->created_at->format('Y-m-d H:i:s'),
             'user_id' => $this->user_id,
             'address_id' => $this->address_id,
+            'pic' => 'api/v1/pic/'.$this->pic_path,
             'result' => $this->result,
         ];
     }
