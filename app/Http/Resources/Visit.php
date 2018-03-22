@@ -3,6 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
+use App\Http\Resources\User as UserResource;
+use App\Http\Resources\Address as AddressResource;
+use App\Address;
+use App\User;
 
 class Visit extends Resource
 {
@@ -17,8 +21,8 @@ class Visit extends Resource
         return [
             'id' => $this->id,
             // 'time' => $this->created_at->format('Y-m-d H:i:s'),
-            'user_id' => $this->user_id,
-            'address_id' => $this->address_id,
+            'user' => new UserResource(User::find($this->user_id)),
+            'address' => new AddressResource(Address::find($this->address_id)),
             'pic' => 'api/v1/pic/'.$this->pic_path,
             'result' => $this->result,
         ];
