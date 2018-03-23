@@ -7,9 +7,20 @@ use App\User;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\UserInfo;
 
 class UserController extends Controller
 {
+    /**
+     * 根据token获取用户信息
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function user_info()
+    {
+        return new UserInfo(Auth::user());
+    }
+
     /**
      * 列出所有用户
      *

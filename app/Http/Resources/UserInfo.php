@@ -3,8 +3,12 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
+use App\Http\Resources\Address as AddressResource;
+use App\Http\Resources\AddressCollection;
+use App\Http\Resources\AddressUser as AddressUserResource;
+use App\Address;
 
-class AddressUser extends Resource
+class UserInfo extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -15,13 +19,10 @@ class AddressUser extends Resource
     public function toArray($request)
     {
         return [
-            'user_id' => $this->id,
-            'role_id' => $this->whenPivotLoaded('user_addresses',function () {
-                return $this->pivot->role_id;
-            }),
-            'time' => $this->whenPivotLoaded('user_addresses',function () {
-                return unserialize($this->pivot->time);
-            }),
+            'id' => $this->id,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'addresses' => AddressUserResource::collection($this->addresses),
         ];
     }
 

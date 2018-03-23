@@ -57,6 +57,7 @@ Route::middleware('refresh.token')->group(function($router) {
 //用户
     Route::get('/users/{user}','UserController@show');
 Route::middleware('refresh.token')->group(function($router) {
+    Route::get('/user_info','UserController@user_info');
     Route::get('/users','UserController@index');
     Route::post('/users','UserController@store');
     Route::patch('/users/{user}','UserController@update');
