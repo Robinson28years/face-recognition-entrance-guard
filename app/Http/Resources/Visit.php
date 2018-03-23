@@ -25,6 +25,7 @@ class Visit extends Resource
             'address' => new AddressResource(Address::find($this->address_id)),
             'pic' => 'api/v1/pic/'.$this->pic_path,
             'result' => $this->result,
+            'visit_time' => $this->created_at->toDateTimeString(),
         ];
     }
 
