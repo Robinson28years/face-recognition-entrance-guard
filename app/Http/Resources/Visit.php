@@ -23,7 +23,7 @@ class Visit extends Resource
             // 'time' => $this->created_at->format('Y-m-d H:i:s'),
             'user' => new UserResource(User::find($this->user_id)),
             'address' => new AddressResource(Address::find($this->address_id)),
-            'pic' => 'api/v1/pic/'.$this->pic_path,
+            'pic' => 'pic/'.$this->pic_path,
             'result' => $this->result,
             'visit_time' => $this->created_at->toDateTimeString(),
         ];
