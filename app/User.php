@@ -55,7 +55,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function addresses()
     {
-        return $this->belongsToMany('App\Address','user_addresses')->withPivot('created_at', 'role_id', 'remakers', 'time', 'grantor')->withTimestamps();
+        return $this->belongsToMany('App\Address','user_addresses')->withPivot('created_at', 'role_id', 'nickname', 'time', 'grantor')->withTimestamps();
     }
 
     /**
