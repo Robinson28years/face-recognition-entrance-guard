@@ -27,7 +27,7 @@ class Visit extends Resource
         return [
             'id' => $this->id,
             // 'time' => $this->created_at->format('Y-m-d H:i:s'),
-            'user' => $user->id,
+            'user_id' => $user->id,
             'nickname' => $address->pivot->nickname,
             'role' => new RoleResource($role),
             'address' => new AddressResource($address),
