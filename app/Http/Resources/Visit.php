@@ -18,10 +18,13 @@ class Visit extends Resource
      */
     public function toArray($request)
     {
+        $user = User::find($this->user_id);
+        $address = $user->addresses::find($this->address_id);
+        dd($address);
         return [
             'id' => $this->id,
             // 'time' => $this->created_at->format('Y-m-d H:i:s'),
-            'user' => new UserResource(User::find($this->user_id)),
+            'user' => new UserResource($user),
             'address' => new AddressResource(Address::find($this->address_id)),
             'pic' => 'pic/'.$this->pic_path,
             'result' => $this->result,

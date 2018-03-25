@@ -14,7 +14,7 @@ class AddRemarksToUserAddressesTable extends Migration
     public function up()
     {
         Schema::table('user_addresses', function (Blueprint $table) {
-            $table->string('remakers')->after('role_id');
+            $table->string('nickname')->after('role_id');
         });
     }
 
