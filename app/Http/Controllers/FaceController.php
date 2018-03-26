@@ -85,7 +85,7 @@ class FaceController extends Controller
             // return max($compare);
             // return $q;
             // dd()
-            if($compare['similarity']>=0.65){
+            if($compare['similarity']>=0.55){
                 // $flag=0;
                 Redis::del($uuid);
                 // var_dump($uuid);
