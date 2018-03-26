@@ -59,7 +59,14 @@ class CodeController extends Controller
 
     }
 
-    public function get_pic() {
-        
+    public function get_pic($code) {
+        // return "okoko";
+        $user_code = UserCode::where('code',$code)->first();
+        // dd($user_code->user_id);
+        $user = User::find($user_code->user_id);
+        // dd($user->visits->last());
+        // dd($code->user);
+        $pic_path = $user->visits->last()->pic_path;
+        return response(['success'=>true,'data'=>['pic'=>"pic/$pic_path",'user_id'=>$user->id]], 200);
     }
 }

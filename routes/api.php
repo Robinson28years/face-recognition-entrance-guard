@@ -134,4 +134,7 @@ Route::get('pic/{path}','FaceController@pic_by_path');
 
 Route::post('face/auth','FaceController@face_auth');
 
+Route::get('user_code_pic/{code}','CodeController@get_pic');
+
+
 });

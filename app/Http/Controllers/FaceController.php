@@ -85,18 +85,22 @@ class FaceController extends Controller
             // return max($compare);
             // return $q;
             // dd()
-            if($compare['similarity']>=0.75){
+            if($compare['similarity']>=0.65){
                 // $flag=0;
                 Redis::del($uuid);
                 // var_dump($uuid);
                 $user = User::where('face_id',$compare['face_id'])->first();
+                // dd($user);
                 $user_id_final_3 = $user->id;
                 // dd($user->addresses);
                 foreach ($user->addresses as $address) {
                     // var_dump($address->building->id);
                     if($address->building->id == $building->id) {
                         $address_id_final = $address->id;
-                        $time = unserialize($address->pivot->time);
+                        if($address->pivot->role_id == 5 ||$address->pivot->role_id == 6){
+                            $flag = true;
+                        }else{
+                         $time = unserialize($address->pivot->time);
                         $week = Carbon::now()->dayOfWeek;
                         // dd(Carbon::now()->dayOfWeek);
                         if($time['date'][0]<=Carbon::now() && $time['date'][1]>=Carbon::now() && in_array($week,$time['week'])){
@@ -105,6 +109,8 @@ class FaceController extends Controller
                         }else{
                             // return "no";
                         }
+                        }
+
                         // return Carbon::now()>$time['date'][0];
                         // dd($address->pivot->time);
                         
