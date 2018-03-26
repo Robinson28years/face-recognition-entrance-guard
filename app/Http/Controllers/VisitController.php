@@ -93,7 +93,7 @@ class VisitController extends Controller
         // for ($i = 0; $i < 1; $i++) {
             $client->send(json_encode([
                 'type'  =>  'scan',
-                'fd'    =>  $request->fd,
+                'uuid'    =>  $request->uuid,
             ]));
         // }
         $client->close(); 

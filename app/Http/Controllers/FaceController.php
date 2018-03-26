@@ -125,6 +125,7 @@ class FaceController extends Controller
         }else{
             $user_id_final = $user_id_final_3;
         }
+        // dd($user_id_final);
 
         if($flag) {
             Visit::create([
@@ -135,9 +136,10 @@ class FaceController extends Controller
             ]);
             return response()->json(['state'=>1,'open'=> true]);
         }elseif($person>0) {
-            if($address_id_final!=null){
+            if($address_id_final==null){
                 $address_id_final = $building->addresses()->where('unit_id',0)->first()->id;
             }
+            // dd($address_id_final);
             Visit::create([
                 'user_id'=>$user_id_final,
                 'address_id'=>$address_id_final,
