@@ -8,6 +8,7 @@ use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserInfo;
+use App\Http\Resources\UserOwnerResource;
 
 class UserController extends Controller
 {
@@ -20,6 +21,38 @@ class UserController extends Controller
     {
         return new UserInfo(Auth::user());
     }
+    /**
+     * 管理员获取所有业主信息
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function user_owner()
+    {
+        // dd(Auth::user()->roles);
+        $flag = false;
+        foreach(Auth::user()->roles as $role) {
+            if($role->name == 'admin' || $role->name == 'property'){
+                $flag = true;
+                break;
+            }
+        }
+        if($flag){
+            $userCollection = collect([]);
+            foreach(User::all() as $user) {
+                foreach($user->addresses as $address) {
+                    if($address->pivot->role_id == 5){
+                        $user->address_1 = $address;
+                        $userCollection->push($user);
+                    }
+                }
+            }
+            // dd($userCollection);
+            return  UserOwnerResource::collection($userCollection);
+        }
+        // return new UserInfo(Auth::user());
+        return "false";
+    }
+    
 
     /**
      * 列出所有用户

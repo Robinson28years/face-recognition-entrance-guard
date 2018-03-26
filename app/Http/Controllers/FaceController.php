@@ -181,11 +181,12 @@ class FaceController extends Controller
             ]);
     
             $compare = json_decode($result2->getBody()->getContents(), true);
-            if($compare['similarity']>=0.75){
+            var_dump($compare);
+            if($compare['similarity']>=0.55){
 
                 Redis::del($uuid);
                 $user = User::where('face_id',$compare['face_id'])->first();
-                // dd($user);
+                dd($user);
                 $token = Auth::login($user);
                 $flag = true;
                 // dd($auth);
