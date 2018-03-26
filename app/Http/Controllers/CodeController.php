@@ -44,7 +44,7 @@ class CodeController extends Controller
         if($user->code == null){
             $random = null;
             do{
-                $random = rand(111,999);
+                $random = rand(1111,9999);
                 // $random = 854;
                 $flag = false;
                 $result = UserCode::where('code',$random)->get()->isNotEmpty();
@@ -57,5 +57,9 @@ class CodeController extends Controller
         // dd($user);
         return new CodeResource($code);
 
+    }
+
+    public function get_pic() {
+        
     }
 }

@@ -146,7 +146,10 @@ class FaceController extends Controller
                 'pic_path'=>$pic_path,
                 'result'=>"未通过"
             ]);
-            return response()->json(['state'=>1,'open'=> false]);
+            $code = new CodeController();
+            $code = $code->store(User::find($user_id_final));
+            // dd($code);
+            return response()->json(['state'=>1,'open'=> false,'code'=>$code->code]);
         }else{
             return response()->json(['state'=>2]);
         }
@@ -183,12 +186,12 @@ class FaceController extends Controller
             ]);
     
             $compare = json_decode($result2->getBody()->getContents(), true);
-            var_dump($compare);
+            // var_dump($compare);
             if($compare['similarity']>=0.55){
 
                 Redis::del($uuid);
                 $user = User::where('face_id',$compare['face_id'])->first();
-                dd($user);
+                // dd($user);
                 $token = Auth::login($user);
                 $flag = true;
                 // dd($auth);
