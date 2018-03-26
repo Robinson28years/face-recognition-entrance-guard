@@ -42,6 +42,7 @@ class UserController extends Controller
                 foreach($user->addresses as $address) {
                     if($address->pivot->role_id == 5){
                         $user->address_1 = $address;
+                        $user->visiter_num = count($address->users)-1;
                         $userCollection->push($user);
                     }
                 }

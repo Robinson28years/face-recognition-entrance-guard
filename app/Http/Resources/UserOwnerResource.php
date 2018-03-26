@@ -20,6 +20,7 @@ class UserOwnerResource extends Resource
             'name' => $this->name,
             'phone' => $this->phone,
             'address' => new AddressResource($this->address_1),
+            'visiter_num' => $this->visiter_num,
             'created_at' => $this->created_at->toDateTimeString()
             // 'roles' => $roles,
             // 'addresses' => AddressUserResource::collection($this->addresses),
