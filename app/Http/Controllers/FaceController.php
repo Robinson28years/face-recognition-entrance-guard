@@ -85,7 +85,7 @@ class FaceController extends Controller
             // return max($compare);
             // return $q;
             // dd()
-            if($compare['similarity']>=0.55){
+            if($compare['similarity']>=0.50){
                 // $flag=0;
                 Redis::del($uuid);
                 // var_dump($uuid);
@@ -193,7 +193,7 @@ class FaceController extends Controller
     
             $compare = json_decode($result2->getBody()->getContents(), true);
             // var_dump($compare);
-            if($compare['similarity']>=0.55){
+            if($compare['similarity']>=0.50){
 
                 Redis::del($uuid);
                 $user = User::where('face_id',$compare['face_id'])->first();
