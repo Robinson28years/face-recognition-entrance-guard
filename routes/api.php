@@ -60,6 +60,7 @@ Route::middleware('refresh.token')->group(function($router) {
     Route::get('/user_info','UserController@user_info');
     Route::get('/user_owner','UserController@user_owner');
     Route::get('/user_property','UserController@user_property');
+    Route::get('/user_visiter','UserController@user_visiter');
     Route::get('/users','UserController@index');
     Route::post('/users','UserController@store');
     Route::patch('/users/{user}','UserController@update');

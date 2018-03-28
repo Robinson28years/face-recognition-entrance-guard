@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserInfo;
 use App\Http\Resources\UserOwnerResource;
 use App\Http\Resources\UserPropertyResource;
+use App\Http\Resources\UserVisiterResource;
+use App\Visit;
+use App\Role;
+use App\UserAddress;
 
 class UserController extends Controller
 {
@@ -91,6 +95,37 @@ class UserController extends Controller
             }
             // dd($userCollection);
             return  UserPropertyResource::collection($userCollection);
+        }
+        // return new UserInfo(Auth::user());
+        return "false";
+    }
+
+    public function user_visiter()
+    {
+        // return "ok";
+        // dd(Auth::user()->roles);
+        $flag = false;
+        foreach(Auth::user()->roles as $role) {
+            if($role->name == 'admin' || $role->name == 'property'){
+                $flag = true;
+                break;
+            }
+        }
+        if($flag){
+            $userCollection = collect([]);
+            foreach(UserAddress::all() as $userAddress) {
+                $user;
+                $flag2 = false;
+                $role = Role::find($userAddress->role_id);
+                    if($role->name == 'family' || $role->name == 'relative' || $role->name == 'nanny' || $role->name == 'temporary' ){
+                        $flag2 = true;
+                    }
+                if($flag2){
+                    $userCollection->push($userAddress);
+                }
+            }
+            // dd($userCollection);
+            return  UserVisiterResource::collection($userCollection);
         }
         // return new UserInfo(Auth::user());
         return "false";
