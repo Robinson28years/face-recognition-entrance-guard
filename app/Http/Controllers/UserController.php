@@ -9,6 +9,7 @@ use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserInfo;
 use App\Http\Resources\UserOwnerResource;
+use App\Http\Resources\UserPropertyResource;
 
 class UserController extends Controller
 {
@@ -56,6 +57,7 @@ class UserController extends Controller
 
     public function user_property()
     {
+        // return "ok";
         // dd(Auth::user()->roles);
         $flag = false;
         foreach(Auth::user()->roles as $role) {
@@ -67,17 +69,28 @@ class UserController extends Controller
         if($flag){
             $userCollection = collect([]);
             foreach(User::all() as $user) {
-                if($user->roles->has(2))
-                foreach($user->addresses as $address) {
-                    if($address->pivot->role_id == 5){
-                        $user->address_1 = $address;
-                        $user->visiter_num = count($address->users)-1;
-                        $userCollection->push($user);
+                $flag2 = false;
+                foreach($user->roles as $role) {
+
+                    if($role->name == 'admin' || $role->name == 'property' || $role->name == 'security' ){
+                        $flag2 = true;
                     }
                 }
+                if($flag2) {
+                    $user->role = $user->roles->first()->alias;
+                    $userCollection->push($user);
+                }
+                // if($user->roles->has(1) || )
+                // foreach($user->addresses as $address) {
+                //     if($address->pivot->role_id == 5){
+                //         $user->address_1 = $address;
+                //         $user->visiter_num = count($address->users)-1;
+                //         $userCollection->push($user);
+                //     }
+                // }
             }
             // dd($userCollection);
-            return  UserOwnerResource::collection($userCollection);
+            return  UserPropertyResource::collection($userCollection);
         }
         // return new UserInfo(Auth::user());
         return "false";
