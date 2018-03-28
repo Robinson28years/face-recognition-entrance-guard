@@ -136,5 +136,9 @@ Route::post('face/auth','FaceController@face_auth');
 
 Route::get('user_code_pic/{code}','CodeController@get_pic');
 
+Route::post('face/upload','FaceController@upload');
+
+Route::post('face/face_id','FaceController@get_faceId');
+
 
 });

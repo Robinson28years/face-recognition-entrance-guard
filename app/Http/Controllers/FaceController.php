@@ -211,4 +211,63 @@ class FaceController extends Controller
             return response(['success'=>false,'error' => '人脸识别失败'], 200);
         }
     }
+
+    public function upload(Request $request)
+    {
+        $path = $request->file('file')->store('','local2');
+        return response(['success'=>false,'pic_path' => $path], 200);
+    }
+
+    public function get_faceId(Request $request)
+    {
+        $path = $request->pic_path;
+
+        $real_path = env('PIC_PATH').'/'.$path;
+
+        $client = new \GuzzleHttp\Client();
+        $result = $client->request('POST', 'http://127.0.0.1:5000/feature', [
+            'form_params' => [
+                'filePath' => $real_path
+            ]
+        ]);
+
+        $faceInfo = json_decode($result->getBody()->getContents(), true);
+        $person = count($faceInfo);
+        $flag = false;
+        $user_id = null;
+        if($person==0){
+            return response(['success'=>false,'msg' => '未检测到人脸'], 200);
+        }
+        for ($i=0; $i < $person; $i++) {
+            $uuid = Uuid::generate();
+            Redis::set($uuid,base64_decode($faceInfo[$i]));
+            $user_id = $uuid->string;
+            $client2 = new \GuzzleHttp\Client();
+            // dd($uuid->string);
+            $result2 = $client2->request('POST', 'http://127.0.0.1:5000/compare', [
+                'form_params' => [
+                    "user_id" => $user_id,
+                ]
+            ]);
+    
+            $compare = json_decode($result2->getBody()->getContents(), true);
+            // var_dump($compare);
+            if($compare['similarity']>=0.50){
+
+                Redis::del($uuid);
+                $user = User::where('face_id',$compare['face_id'])->first();
+                // dd($user);
+                // $token = Auth::login($user);
+                $flag = true;
+                // dd($auth);
+                // return $this->auth->refresh();
+                return response(['success'=>true,'msg' => '人脸已存在','face_id'=>$compare['face_id']], 200);
+            }else{
+
+            }
+        }
+        if(!$flag){
+            return response(['success'=>true,'face_id' => $user_id], 200);
+        }
+    }
 }
