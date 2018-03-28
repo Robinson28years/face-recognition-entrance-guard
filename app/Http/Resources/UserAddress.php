@@ -25,7 +25,7 @@ class UserAddress extends Resource
                 return $this->pivot->role_id;
             }),
             'time' => $this->whenPivotLoaded('user_addresses',function () {
-                return $this->pivot->time;
+                return unserialize($this->pivot->time);
             }),
             'grantor' => $this->whenPivotLoaded('user_addresses',function () {
                 return $this->pivot->grantor;

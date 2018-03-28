@@ -53,6 +53,35 @@ class UserController extends Controller
         // return new UserInfo(Auth::user());
         return "false";
     }
+
+    public function user_property()
+    {
+        // dd(Auth::user()->roles);
+        $flag = false;
+        foreach(Auth::user()->roles as $role) {
+            if($role->name == 'admin' || $role->name == 'property'){
+                $flag = true;
+                break;
+            }
+        }
+        if($flag){
+            $userCollection = collect([]);
+            foreach(User::all() as $user) {
+                if($user->roles->has(2))
+                foreach($user->addresses as $address) {
+                    if($address->pivot->role_id == 5){
+                        $user->address_1 = $address;
+                        $user->visiter_num = count($address->users)-1;
+                        $userCollection->push($user);
+                    }
+                }
+            }
+            // dd($userCollection);
+            return  UserOwnerResource::collection($userCollection);
+        }
+        // return new UserInfo(Auth::user());
+        return "false";
+    }
     
 
     /**
