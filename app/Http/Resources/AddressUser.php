@@ -3,6 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
+use App\Role;
+use App\User;
+use App\Http\Resources\Role as RoleResource;
 
 class AddressUser extends Resource
 {
@@ -14,14 +17,19 @@ class AddressUser extends Resource
      */
     public function toArray($request)
     {
+        $role = Role::find($this->pivot->role_id);
+        $nickname = $this->pivot->nickname;
+        if($nickname==null){
+            $nickname = User::find($this->id)->name;
+        }
         return [
             'user_id' => $this->id,
-            'role_id' => $this->whenPivotLoaded('user_addresses',function () {
-                return $this->pivot->role_id;
-            }),
+            'nickname' => $nickname,
+            'role' => new RoleResource($role),
             'time' => $this->whenPivotLoaded('user_addresses',function () {
                 return unserialize($this->pivot->time);
             }),
+            'created_at' => $this->pivot->created_at->toDateTimeString(),
         ];
     }
 
