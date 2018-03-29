@@ -24,7 +24,11 @@ class Visit extends Resource
         $address = $user->addresses()->find($this->address_id);
         if($address==null){
             $address = Address::find($this->address_id);
-            $nickname = "未知";
+            if($user->name){
+                $nickname = $user->name;
+            }else{
+                $nickname = "未知";
+            }
             $role = Role::find(11);
         }else{
             $role = Role::find($address->pivot->role_id);
