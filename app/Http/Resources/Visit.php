@@ -22,13 +22,20 @@ class Visit extends Resource
     {
         $user = User::find($this->user_id);
         $address = $user->addresses()->find($this->address_id);
-        $role = Role::find($address->pivot->role_id);
-        // dd($address);
+        if($address==null){
+            $address = Address::find($this->address_id);
+            $nickname = "未知";
+            $role = Role::find(11);
+        }else{
+            $role = Role::find($address->pivot->role_id);
+            $nickname = $address->pivot->nickname;
+        }
+
         return [
             'id' => $this->id,
             // 'time' => $this->created_at->format('Y-m-d H:i:s'),
             'user_id' => $user->id,
-            'nickname' => $address->pivot->nickname,
+            'nickname' => $nickname,
             'role' => new RoleResource($role),
             'address' => new AddressResource($address),
             'pic' => 'pic/'.$this->pic_path,
