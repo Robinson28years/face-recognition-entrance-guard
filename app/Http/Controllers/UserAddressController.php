@@ -87,7 +87,7 @@ class UserAddressController extends Controller
         // $user->addresses()->updateExistingPivot($address->id,$request->all());
         $time = $request->time;
         // dd(json_decode($time,false));
-        $user->addresses()->updateExistingPivot($address->id,['time'=>serialize(json_decode($time,false))]);
+        $user->addresses()->updateExistingPivot($address->id,['time'=>serialize(json_decode($time,true))]);
         $address2 = $user->addresses()->find($address->id);
         return new UserAddressResource($address2);
     }   
