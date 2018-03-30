@@ -22,6 +22,14 @@ class AddressUser extends Resource
         if($nickname==null){
             $nickname = User::find($this->id)->name;
         }
+        // $pic_path = $this->visits->last()->pic_path;
+        if($this->visits->last()) {
+            $pic_path = $this->visits->last()->pic_path;
+            // var_dump($pic_path);
+        }else {
+            $pic_path = null;
+        }
+        // dd($pic_path);
         return [
             'user_id' => $this->id,
             'nickname' => $nickname,
@@ -29,6 +37,7 @@ class AddressUser extends Resource
             'time' => $this->whenPivotLoaded('user_addresses',function () {
                 return unserialize($this->pivot->time);
             }),
+            'pic' => "pic/$pic_path",
             'created_at' => $this->pivot->created_at->toDateTimeString(),
         ];
     }
