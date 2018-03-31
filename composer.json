@@ -14,7 +14,8 @@
         "laravel/tinker": "~1.0",
         "predis/predis": "^1.1",
         "tymon/jwt-auth": "1.0.0-rc.1",
-        "webpatser/laravel-uuid": "^3.0"
+        "webpatser/laravel-uuid": "^3.0",
+        "jpush/jpush": "^3.5"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
