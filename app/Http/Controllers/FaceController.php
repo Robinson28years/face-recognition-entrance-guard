@@ -165,7 +165,7 @@ class FaceController extends Controller
             // dd($code);
             return response()->json(['state'=>1,'open'=> false,'code'=>$code->code]);
         }else{
-            return response()->json(['state'=>2]);
+            return response()->json(['state'=>2,'open'=> false]);
         }
 
 
