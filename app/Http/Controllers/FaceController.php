@@ -68,6 +68,7 @@ class FaceController extends Controller
         for ($i=0; $i < $person; $i++) {
             $uuid = Uuid::generate();
             Redis::set($uuid,base64_decode($faceInfo[$i]));
+            Redis::expire($uuid,864000);
             $user_id = $uuid->string;
             $client2 = new \GuzzleHttp\Client();
             // dd($uuid->string);
@@ -89,7 +90,13 @@ class FaceController extends Controller
                 // $flag=0;
                 Redis::del($uuid);
                 // var_dump($uuid);
+                
                 $user = User::where('face_id',$compare['face_id'])->first();
+                if(count($user->roles)>0){
+                    Redis::PERSIST($compare['face_id']);
+                }else{
+                    Redis::expire($compare['face_id'],2592000);
+                }
                 // dd($user);
                 $user_id_final_3 = $user->id;
                 // dd($user->addresses);
@@ -140,7 +147,8 @@ class FaceController extends Controller
                 'pic_path'=>$pic_path,
                 'result'=>"通过"
             ]);
-            return response()->json(['state'=>1,'open'=> true]);
+            $user = User::find($user_id_final);
+            return response()->json(['state'=>1,'open'=> true,'name'=>$user->name]);
         }elseif($person>0) {
             if($address_id_final==null){
                 $address_id_final = $building->addresses()->where('unit_id',0)->first()->id;
