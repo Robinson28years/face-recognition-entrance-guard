@@ -84,10 +84,15 @@ class UserAddressController extends Controller
         // var_dump($request->date);
         // $staff=array("name"=>"洪七","number"=>"101","sex"=>"男","job"=>"总经理");
                 // dd($staff);
-        // $user->addresses()->updateExistingPivot($address->id,$request->all());
-        $time = $request->time;
+        $user->addresses()->updateExistingPivot($address->id,$request->all());
+        // $time = $request->time;
         // dd(json_decode($time,false));
-        $user->addresses()->updateExistingPivot($address->id,['time'=>serialize(json_decode($time,true))]);
+        // dd($request);
+        if($request->time!=null){
+            $user->addresses()->updateExistingPivot($address->id,['time'=>serialize(json_decode($time,true))]);
+        }else{
+            // $user->addresses()->updateExistingPivot($address->id,$request->all());
+        }
         $address2 = $user->addresses()->find($address->id);
         return new UserAddressResource($address2);
     }   
