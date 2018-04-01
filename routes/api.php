@@ -146,5 +146,6 @@ Route::get('jpush/test','JPushController@PushTest');
 
 Route::get('visit_latest','VisitController@latest');
 
+Route::post('switch_auth','VisitController@switchAuth');
 
 });
