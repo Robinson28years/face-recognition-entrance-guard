@@ -148,6 +148,8 @@ class FaceController extends Controller
                 'result'=>"通过"
             ]);
             $user = User::find($user_id_final);
+            $auto = new VisitController();
+            $auto->autoOpen(1);
             return response()->json(['state'=>1,'open'=> true,'name'=>$user->name]);
         }elseif($person>0) {
             if($address_id_final==null){

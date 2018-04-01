@@ -129,4 +129,20 @@ class VisitController extends Controller
         }
         $client->close(); 
     }
+
+    public function autoOpen($building_id)
+    {
+        $client = new \swoole_client(SWOOLE_SOCK_TCP);
+        $client->connect('127.0.0.1', 10000) || exit("connect failed. Error: {$client->errCode}\n");
+
+        for ($i = 0; $i < 1; $i++) {
+            $client->send(json_encode([
+                'type'  =>  'open',
+                'building_id' => $building_id
+            ]));
+        }
+        // return "ok";
+    }
+
+    
 }
