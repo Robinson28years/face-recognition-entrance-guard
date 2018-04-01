@@ -144,5 +144,7 @@ Route::post('face/face_id','FaceController@get_faceId');
 
 Route::get('jpush/test','JPushController@PushTest');
 
+Route::get('visit_latest','VisitController@latest');
+
 
 });

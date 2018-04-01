@@ -13,6 +13,12 @@ use App\Address;
 class VisitController extends Controller
 {
 
+    public function latest()
+    {
+        // dd(Visit::all()->last());
+        return new VisitResource(Visit::all()->last());
+    }
+
     /**
      * 列出所有访问记录
      *

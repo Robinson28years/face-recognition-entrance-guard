@@ -10,6 +10,7 @@ use App\Address;
 use App\Http\Resources\AddressUser as AddressUserResource;
 use App\Http\Resources\AddressUserCollection;
 use function GuzzleHttp\json_decode;
+use App\UserAddress;
 
 class UserAddressController extends Controller
 {
@@ -84,12 +85,19 @@ class UserAddressController extends Controller
         // var_dump($request->date);
         // $staff=array("name"=>"洪七","number"=>"101","sex"=>"男","job"=>"总经理");
                 // dd($staff);
+        // UserAddress::where(['user_id'=>$user->id,'address_id'=>$address_id])
+        // dd($request->all());
+        // dd(json_decode($request->time,true));
+        // if($request->time!=null){
+        //     $request->all()['time']=serialize(json_decode($request->time,true));
+        // }
+        // dd($request->all());
         $user->addresses()->updateExistingPivot($address->id,$request->all());
         // $time = $request->time;
         // dd(json_decode($time,false));
         // dd($request);
         if($request->time!=null){
-            $user->addresses()->updateExistingPivot($address->id,['time'=>serialize(json_decode($time,true))]);
+            $user->addresses()->updateExistingPivot($address->id,['time'=>serialize(json_decode($request->time,true))]);
         }else{
             // $user->addresses()->updateExistingPivot($address->id,$request->all());
         }
