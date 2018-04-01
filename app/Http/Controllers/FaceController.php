@@ -110,11 +110,12 @@ class FaceController extends Controller
                     // var_dump($address->building->id);
                     if($address->building->id == $building->id) {
                         $address_id_final = $address->id;
-                        if($address->pivot->role_id == 5 ||$address->pivot->role_id == 6 || $address->pivot->role_id == 9){
+                        if($address->pivot->role_id == 5 ||$address->pivot->role_id == 6 ){
                             $flag = true;
-                            if($address->pivot->role_id == 9){
-                                $user->addresses()->updateExistingPivot($address->id,['role_id'=>12]);
-                            }
+                            // if($address->pivot->role_id == 9){
+                                // || $address->pivot->role_id == 9
+                            //     $user->addresses()->updateExistingPivot($address->id,['role_id'=>12]);
+                            // }
                         }else if($address->pivot->role_id == 7 || $address->pivot->role_id == 8 ){
                          $time = unserialize($address->pivot->time);
                         $week = Carbon::now()->dayOfWeek;

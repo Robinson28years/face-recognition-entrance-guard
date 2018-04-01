@@ -148,4 +148,6 @@ Route::get('visit_latest','VisitController@latest');
 
 Route::post('switch_auth','VisitController@switchAuth');
 
+Route::post('change_user_state','VisitController@changeState');
+
 });

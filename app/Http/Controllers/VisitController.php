@@ -9,6 +9,7 @@ use App\Http\Resources\Visit as VisitResource;
 use App\User;
 use App\Building;
 use App\Address;
+use App\UserAddress;
 
 class VisitController extends Controller
 {
@@ -142,6 +143,19 @@ class VisitController extends Controller
             ]));
         }
         // return "ok";
+    }
+
+    public function changeState(Request $request)
+    {
+        $address_id=$request->address_id;
+        $user_id = $request->user_id;
+        //todo:授权者
+       $userAddress = UserAddress::updateOrCreate(['address_id'=>$address_id,'user_id'=>$user_id,'role_id' => 9,'grantor'=>1]);
+    //    $userAddress->update(['role_id' => 9]);
+       $visit = Visit::where(['address_id'=>$address_id,'user_id'=>$user_id])->orderBy('created_at', 'desc')->first();
+        $visit->update(['result'=>"通过",'address_id'=>$address_id]);
+        return "ok";
+    //    $userAddress->update('role_id',9);
     }
 
     
