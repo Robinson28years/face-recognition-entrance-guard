@@ -32,7 +32,12 @@ class Visit extends Resource
             $role = Role::find(11);
         }else{
             $role = Role::find($address->pivot->role_id);
-            $nickname = $address->pivot->nickname;
+            if($user->name){
+                $nickname = $user->name;
+            }else{
+                $nickname = $address->pivot->nickname;
+            }
+            
         }
 
         return [
