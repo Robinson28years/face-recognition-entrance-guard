@@ -54,6 +54,12 @@ class FaceController extends Controller
                 'filePath' => $real_path
             ]
         ]);
+        $out = false;
+        if($request->dir != null){
+            if($request->dir == "out"){
+                $out = true;
+            }
+        }
 
         $user_id_final=null;
         $user_id_final_2=null;
@@ -144,11 +150,15 @@ class FaceController extends Controller
         // dd($user_id_final);
 
         if($flag) {
+            $re ="通过";
+            if($out){
+                $re = "出门禁";
+            }
             Visit::create([
                 'user_id'=>$user_id_final,
                 'address_id'=>$address_id_final,
                 'pic_path'=>$pic_path,
-                'result'=>"通过"
+                'result'=>$re
             ]);
             $user = User::find($user_id_final);
             $auto = new VisitController();
