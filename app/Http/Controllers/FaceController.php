@@ -158,6 +158,7 @@ class FaceController extends Controller
                 'user_id'=>$user_id_final,
                 'address_id'=>$address_id_final,
                 'pic_path'=>$pic_path,
+                'attendant_num'=>$person-1,
                 'result'=>$re
             ]);
             $user = User::find($user_id_final);
@@ -173,6 +174,7 @@ class FaceController extends Controller
                 'user_id'=>$user_id_final,
                 'address_id'=>$address_id_final,
                 'pic_path'=>$pic_path,
+                'attendant_num'=>$person-1,
                 'result'=>"未通过"
             ]);
             $code = new CodeController();

@@ -48,6 +48,7 @@ class Visit extends Resource
             'role' => new RoleResource($role),
             'address' => new AddressResource($address),
             'pic' => 'pic/'.$this->pic_path,
+            'attendant_num' => $this->attendant_num,
             'result' => $this->result,
             'visit_time' => $this->created_at->toDateTimeString(),
         ];
