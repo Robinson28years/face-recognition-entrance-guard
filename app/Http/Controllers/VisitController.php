@@ -147,12 +147,22 @@ class VisitController extends Controller
 
     public function changeState(Request $request)
     {
+        // $time = "{"date":["2018-04-12","2018-04-28"],"week":[0,1,2,3,4,5,6,7]}";
+        $time = UserAddress::first()->time;
         $address_id=$request->address_id;
         $user_id = $request->user_id;
         //todo:授权者
-       $userAddress = UserAddress::updateOrCreate(['address_id'=>$address_id,'user_id'=>$user_id,'role_id' => 9,'grantor'=>1]);
+       $userAddress = UserAddress::updateOrCreate(['address_id'=>$address_id,
+       'user_id'=>$user_id,
+       'role_id' => 9,
+       'grantor'=>1,
+       'time'=>$time,
+       ]);
+
+    //    dd($time);
     //    $userAddress->update(['role_id' => 9]);
-       $visit = Visit::where(['address_id'=>$address_id,'user_id'=>$user_id])->orderBy('created_at', 'desc')->first();
+       $visit = Visit::where(['user_id'=>$user_id])->orderBy('created_at', 'desc')->first();
+    //    dd($visit);
         $visit->update(['result'=>"通过",'address_id'=>$address_id]);
         return "ok";
     //    $userAddress->update('role_id',9);
