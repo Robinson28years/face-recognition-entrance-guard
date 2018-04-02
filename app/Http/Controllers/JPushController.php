@@ -14,7 +14,7 @@ class JPushController extends Controller
         $client->push()
         ->setPlatform('all')
         ->addAllAudience()
-        ->setNotificationAlert('🕶🕶🕶🕶, 小时的风，我是Robinson😀')
+        ->setNotificationAlert('有人来访问你家啦！')
         ->send();
 
         return "ok";
