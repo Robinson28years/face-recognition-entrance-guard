@@ -24,7 +24,7 @@ class AddressUser extends Resource
         }
         // $pic_path = $this->visits->last()->pic_path;
         if($this->visits->last()) {
-            $pic_path = $this->visits->last()->pic_path;
+            $pic_path = $this->visits->first()->pic_path;
             // var_dump($pic_path);
         }else {
             $pic_path = null;

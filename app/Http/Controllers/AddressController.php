@@ -23,6 +23,16 @@ class AddressController extends Controller
     }
 
     /**
+     * 列出所有住户地址
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addressAll()
+    {
+        return new AddressCollection(Address::all());
+    }
+
+    /**
      * 将某地址绑定到楼幢上
      *
      * @param  \Illuminate\Http\Request  $request

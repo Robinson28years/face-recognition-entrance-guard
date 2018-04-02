@@ -150,4 +150,6 @@ Route::post('switch_auth','VisitController@switchAuth');
 
 Route::post('change_user_state','VisitController@changeState');
 
+Route::get('address_all','AddressController@addressAll');
+
 });
