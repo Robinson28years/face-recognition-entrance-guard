@@ -152,12 +152,12 @@ class VisitController extends Controller
         $address_id=$request->address_id;
         $user_id = $request->user_id;
         //todo:授权者
-       $userAddress = UserAddress::updateOrCreate(['address_id'=>$address_id,
-       'user_id'=>$user_id,
-       'role_id' => 9,
-       'grantor'=>1,
-       'time'=>$time,
-       ]);
+    //    $userAddress = UserAddress::updateOrCreate(['address_id'=>$address_id,
+    //    'user_id'=>$user_id,
+    //    'role_id' => 9,
+    //    'grantor'=>1,
+    //    'time'=>$time,
+    //    ]);
 
     //    dd($time);
     //    $userAddress->update(['role_id' => 9]);
