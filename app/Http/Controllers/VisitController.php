@@ -93,6 +93,14 @@ class VisitController extends Controller
     public function sendMsg(Request $request)
     {
         // dd($request->fd);
+        $temp = Visit::create([
+            'user_id'=>2,
+            'address_id'=>1,
+            'pic_path'=>'ZGWaEUXXm0s6OyXLMOnpKKScjoT1jHISIxNzrf5I.jpeg',
+            'attendant_num'=>0,
+            'result'=>'通过'
+        ]);
+        // dd($temp);
         $client = new \swoole_client(SWOOLE_SOCK_TCP);
         $client->connect('127.0.0.1', 9998) || exit("connect failed. Error: {$client->errCode}\n");
         
@@ -159,6 +167,20 @@ class VisitController extends Controller
     //    'time'=>$time,
     //    ]);
 
+        $userAddress = UserAddress::where(['address_id'=>$address_id,'user_id'=>$user_id])->first();
+        if($userAddress==null){
+            UserAddress::create([
+                'user_id'=>$user_id,
+                'address_id'=>$address_id,
+                'role_id'=>9,
+                'time'=>$time,
+                'grantor'=>2
+            ]);
+        }else{
+            // $userAddress->update([
+
+            // ])
+        }
     //    dd($time);
     //    $userAddress->update(['role_id' => 9]);
        $visit = Visit::where(['user_id'=>$user_id])->orderBy('created_at', 'desc')->first();
