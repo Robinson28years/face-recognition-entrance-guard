@@ -110,6 +110,11 @@ class VisitController extends Controller
                 'type'  =>  'scan',
                 'uuid'    =>  $request->uuid,
             ]));
+            //todo:解决开哪幢门问题
+            $client->send(json_encode([
+                'type'  =>  'open',
+                'building_id' => $request->building_id
+            ]));
         }
         $client->close(); 
     }
