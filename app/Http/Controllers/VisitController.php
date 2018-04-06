@@ -110,13 +110,18 @@ class VisitController extends Controller
                 'type'  =>  'scan',
                 'uuid'    =>  $request->uuid,
             ]));
-            //todo:解决开哪幢门问题
-            $client->send(json_encode([
-                'type'  =>  'open',
-                'building_id' => $request->building_id
-            ]));
         }
         $client->close(); 
+
+        $client2 = new \swoole_client(SWOOLE_SOCK_TCP);
+        $client2->connect('127.0.0.1', 10000) || exit("connect failed. Error: {$client2->errCode}\n");
+
+        for ($i = 0; $i < 1; $i++) {
+            $client2->send(json_encode([
+                'type'  =>  'open',
+                'building_id' => $building_id
+            ]));
+        }
     }
 
     public function switchAuth(Request $request)
