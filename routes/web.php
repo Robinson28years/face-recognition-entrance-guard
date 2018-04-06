@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/property', function () {
+    return view('property');
+});
+
+Route::get('/owner', function () {
+    return view('owner');
+});
