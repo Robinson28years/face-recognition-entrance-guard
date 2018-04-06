@@ -113,6 +113,8 @@ class VisitController extends Controller
         }
         $client->close(); 
 
+        $building_id = 1;
+
         $client2 = new \swoole_client(SWOOLE_SOCK_TCP);
         $client2->connect('127.0.0.1', 10000) || exit("connect failed. Error: {$client2->errCode}\n");
 
